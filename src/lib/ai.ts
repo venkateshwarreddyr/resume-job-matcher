@@ -86,23 +86,46 @@ export async function analyzeWithAI(
   const client = getClient();
   const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
 
-  const response = await client.chat.completions.create({
-    model,
-    messages: [
-      { role: "system", content: SYSTEM_PROMPT },
-      { role: "user", content: buildUserPrompt(resumeText, jobDescription) },
-    ],
-    temperature: 0.3,
-    max_tokens: 2000,
-    response_format: { type: "json_object" },
-  });
+  let response;
+  try {
+    response = await client.chat.completions.create({
+      model,
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: buildUserPrompt(resumeText, jobDescription) },
+      ],
+      temperature: 0.3,
+      max_tokens: 2000,
+      response_format: { type: "json_object" },
+    });
+  } catch (err: unknown) {
+    const error = err as { status?: number; code?: string; message?: string };
+    if (error.status === 401) {
+      throw new Error("AI service authentication failed. Please check your API key configuration.");
+    }
+    if (error.status === 429) {
+      throw new Error("AI service rate limit exceeded. Please wait a moment and try again.");
+    }
+    if (error.status === 402 || error.code === "insufficient_quota") {
+      throw new Error("AI service quota exceeded. Please check your billing and usage limits.");
+    }
+    if (error.status === 503 || error.status === 500) {
+      throw new Error("AI service is temporarily unavailable. Please try again later.");
+    }
+    throw new Error("Failed to connect to AI service. Please try again later.");
+  }
 
   const content = response.choices[0]?.message?.content;
   if (!content) {
     throw new Error("AI returned an empty response. Please try again.");
   }
 
-  const parsed = JSON.parse(content) as MatchResult;
+  let parsed: MatchResult;
+  try {
+    parsed = JSON.parse(content) as MatchResult;
+  } catch {
+    throw new Error("AI returned an invalid response. Please try again.");
+  }
 
   if (
     typeof parsed.overallScore !== "number" ||

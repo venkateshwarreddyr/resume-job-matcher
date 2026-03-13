@@ -1,113 +1,165 @@
-# Resume Job Matcher
+<div align="center">
 
-An AI-powered resume-to-job matching tool that helps HR teams and job seekers instantly evaluate how well a resume fits a specific job description. Upload a resume (PDF or DOCX), paste the job description, and get a comprehensive match analysis powered by OpenAI.
+# ResumeMatch - AI-Powered Resume Analyzer
 
-## Why This Tool?
+### Match your resume against any job description with AI-powered insights
 
-Hiring managers spend an average of 7 seconds scanning a resume. This tool automates that process with AI, providing an objective, detailed breakdown that helps:
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o--mini-412991?style=for-the-badge&logo=openai)](https://platform.openai.com/)
 
-- **HR teams** shortlist candidates faster with data-driven match scores
-- **Job seekers** identify skill gaps and tailor their applications
-- **Recruiters** compare candidates against role requirements at scale
+<br />
 
-## Screenshots
+<!-- Add a screenshot: <img src="docs/screenshot.png" alt="ResumeMatch Screenshot" width="600" /> -->
 
-### Upload & Analyze
-Upload your resume and paste the full job description. Supports PDF and DOCX formats up to 5MB.
+<br />
 
-![Home Screen](docs/resume_matcher_home.png)
+[**Live Demo**](https://resume-job-matcher-five.vercel.app) &nbsp;&middot;&nbsp; [**Report Bug**](../../issues) &nbsp;&middot;&nbsp; [**Request Feature**](../../issues)
 
-### Detailed Results Dashboard
-Get a complete breakdown with overall match score, skill analysis, experience comparison, education match, and actionable recommendations.
+</div>
 
-![Results Dashboard](docs/resume_matcher_result.png)
+---
+
+## About
+
+ResumeMatch is a web app that analyzes resumes against job descriptions using OpenAI. Upload a resume (PDF or DOCX), paste the job description, and get a comprehensive match analysis with weighted scores, skill breakdowns, experience comparison, and actionable recommendations -- all in seconds.
+
+Hiring managers spend an average of 7 seconds scanning a resume. This tool automates that process with AI, providing an objective, detailed breakdown that helps **HR teams** shortlist candidates faster, **job seekers** identify skill gaps, and **recruiters** compare candidates against role requirements at scale.
+
+### Built With
+
+| Layer | Tech |
+|-------|------|
+| **Framework** | Next.js 16 (App Router) |
+| **Language** | TypeScript 5 |
+| **Styling** | Tailwind CSS 4 |
+| **AI** | OpenAI GPT-4o-mini (configurable) |
+| **Parsing** | pdf-parse (PDF), mammoth (DOCX) |
+| **Deployment** | Vercel / any Node.js host |
+
+---
 
 ## Features
 
-- **AI-Powered Analysis** - Uses OpenAI (GPT-4o-mini) for deep semantic understanding of resumes and job descriptions
-- **Overall Match Score** - Weighted percentage combining skills, experience, education, and keyword relevance
-- **Skills Breakdown** - Matched skills (green), related/partial matches (amber), and missing skills (red)
-- **Experience Comparison** - Years of experience vs. requirements with seniority level alignment
-- **Education Match** - Degree level and field relevance scoring
-- **AI Insights** - Strengths, concerns, interview tips, culture fit assessment, and salary range estimates
-- **Actionable Recommendations** - Prioritized suggestions to improve your match
-- **Top Matching Keywords** - Domain-specific terms shared between resume and job description
-- **Resume Parsing** - Extracts text from PDF and DOCX files using pdf-parse and mammoth
-- **Privacy First** - Resume files are processed in memory, never stored on disk
+<table>
+<tr>
+<td width="50%">
 
-## Tech Stack
+**Resume Parsing**
+- PDF and DOCX file support
+- In-memory processing (files never stored)
+- Text extraction with smart cleanup
+- Handles encrypted PDF detection
 
-| Layer | Technology |
-|-------|-----------|
-| **Frontend** | React 18, TypeScript, Vite, Tailwind CSS, Lucide Icons |
-| **Backend** | Node.js, Express, TypeScript |
-| **AI** | OpenAI GPT-4o-mini (configurable model) |
-| **Parsing** | pdf-parse (PDF), mammoth (DOCX) |
-| **Security** | Helmet, CORS, express-rate-limit, Zod validation |
-| **Logging** | Pino (structured JSON logging) |
-| **Testing** | Jest, Supertest |
-| **DevOps** | Docker, GitHub Actions CI |
+</td>
+<td width="50%">
 
-## Getting Started
+**AI-Powered Matching**
+- Weighted overall match score (0-100)
+- Skills: matched, partial, and missing
+- Experience: years and seniority alignment
+- Education: degree level and field relevance
+
+</td>
+</tr>
+<tr>
+<td>
+
+**AI Insights**
+- Strengths and concerns assessment
+- Interview preparation tips
+- Culture fit analysis
+- Salary range estimates
+- Top matching keywords
+
+</td>
+<td>
+
+**User Experience**
+- Dark-themed glassmorphism UI
+- Drag and drop file upload
+- Real-time loading animations
+- Color-coded score indicators
+- Actionable recommendations
+
+</td>
+</tr>
+</table>
+
+---
+
+## Quick Start
 
 ### Prerequisites
 
-- Node.js 20+
-- An [OpenAI API key](https://platform.openai.com/api-keys)
+- **Node.js** 20+
+- **OpenAI API key** ([get one here](https://platform.openai.com/api-keys))
 
 ### Installation
 
 ```bash
-# Clone the repository
+# Clone the repo
 git clone https://github.com/venkateshwarreddyr/resume-job-matcher.git
 cd resume-job-matcher
 
 # Install dependencies
 npm install
-cd server && npm install
-cd ../client && npm install
-cd ..
 
-# Configure environment
-cp .env.example .env
-# Edit .env and add your OPENAI_API_KEY
+# Set up environment
+cp .env.example .env.local
 ```
 
-### Configuration
-
-Create a `.env` file in the project root:
+Add your API key to `.env.local`:
 
 ```env
-PORT=3001
-NODE_ENV=development
-CORS_ORIGIN=http://localhost:5173
-UPLOAD_MAX_SIZE=5242880
-RATE_LIMIT_WINDOW=900000
-RATE_LIMIT_MAX=100
-LOG_LEVEL=info
-OPENAI_API_KEY=sk-your-openai-api-key
+OPENAI_API_KEY=sk-your-key-here
 OPENAI_MODEL=gpt-4o-mini
 ```
 
-### Run Development Servers
+### Run
 
 ```bash
-# Start both client (:5173) and server (:3001)
 npm run dev
-
-# Or start them separately
-npm run dev:server   # Express API on :3001
-npm run dev:client   # Vite dev server on :5173
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+Open **http://localhost:3000** and start analyzing resumes.
 
-### Build for Production
+---
 
-```bash
-npm run build        # Builds server (TypeScript) and client (Vite)
-npm start            # Starts production server on :3001
+## Project Structure
+
 ```
+src/
+├── app/
+│   ├── api/analyze/route.ts       # POST endpoint - parse & analyze
+│   ├── globals.css                 # Theme & animations
+│   ├── layout.tsx                  # SEO metadata & fonts
+│   └── page.tsx                    # Main page (Header, Hero, Analyzer)
+├── components/
+│   ├── Header.tsx                  # Fixed navbar with glassmorphism
+│   ├── Hero.tsx                    # Animated hero with stats
+│   ├── ResumeAnalyzer.tsx          # Core upload + analysis flow
+│   ├── FileUpload.tsx              # Drag & drop PDF/DOCX upload
+│   ├── JobDescriptionInput.tsx     # Job description textarea
+│   ├── ResultsDashboard.tsx        # Score overview + all result cards
+│   ├── MatchScoreGauge.tsx         # Circular score visualization
+│   ├── SkillsCard.tsx              # Matched / partial / missing skills
+│   ├── ExperienceCard.tsx          # Years & seniority comparison
+│   ├── EducationCard.tsx           # Degree & field relevance
+│   ├── AIInsightsCard.tsx          # Strengths, tips, culture fit
+│   ├── RecommendationsCard.tsx     # Prioritized action items
+│   ├── LoadingSpinner.tsx          # Analysis loading state
+│   ├── Features.tsx                # Feature showcase section
+│   └── Footer.tsx                  # Footer with links
+├── lib/
+│   ├── ai.ts                      # OpenAI integration & prompt engineering
+│   └── parser.ts                   # PDF & DOCX text extraction
+└── types/
+    └── index.ts                    # TypeScript interfaces
+```
+
+---
 
 ## API Reference
 
@@ -120,15 +172,7 @@ Analyze a resume against a job description.
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `resume` | File | Yes | PDF or DOCX file (max 5MB) |
-| `jobDescription` | String | Yes | Job description text (50-10,000 characters) |
-
-**Example:**
-
-```bash
-curl -X POST http://localhost:3001/api/analyze \
-  -F "resume=@resume.pdf" \
-  -F "jobDescription=We are looking for a Senior Software Engineer with 5+ years..."
-```
+| `jobDescription` | String | Yes | Job description text (50-10,000 chars) |
 
 **Response:** `200 OK`
 
@@ -137,7 +181,7 @@ curl -X POST http://localhost:3001/api/analyze \
   "overallScore": 85,
   "skillMatch": {
     "score": 78,
-    "matched": ["AWS", "Angular", "Docker", "Go"],
+    "matched": ["AWS", "Angular", "Docker"],
     "missing": ["Mentoring"],
     "partial": [{ "skill": "Design Patterns", "relatedFound": "DevOps" }]
   },
@@ -155,101 +199,88 @@ curl -X POST http://localhost:3001/api/analyze \
   },
   "keywordRelevance": {
     "score": 16,
-    "topSharedTerms": ["architecture", "design", "systems", "ai"]
+    "topSharedTerms": ["architecture", "design", "systems"]
   },
   "recommendations": [
-    "Consider learning Mentoring to strengthen your profile for this role.",
-    "Strong skill alignment — highlight your experience with AWS, Angular, Docker."
+    "Consider learning Mentoring to strengthen your profile.",
+    "Highlight your experience with AWS, Angular, Docker."
   ],
   "aiInsights": {
-    "summary": "Strong candidate with solid architecture experience and relevant technical skills.",
-    "strengths": ["Deep cloud infrastructure expertise", "8 years exceeds requirement"],
+    "summary": "Strong candidate with solid architecture experience.",
+    "strengths": ["Deep cloud infrastructure expertise"],
     "concerns": ["No mentoring experience listed"],
-    "interviewTips": ["Prepare system design examples", "Discuss AI architecture decisions"],
-    "cultureFit": "Good fit for a technical leadership role in an AI-focused team",
+    "interviewTips": ["Prepare system design examples"],
+    "cultureFit": "Good fit for a technical leadership role",
     "salaryRange": "$150,000 - $190,000"
   }
 }
 ```
 
-### `GET /api/health`
-
-Health check endpoint.
-
-```json
-{ "status": "ok", "uptime": 12345, "version": "1.0.0" }
-```
-
-### Error Responses
+**Error Responses:**
 
 | Status | Description |
 |--------|-------------|
-| `400` | Invalid file type, missing fields, file too large, job description too short |
-| `422` | Resume could not be parsed (encrypted PDF, image-only scan) |
+| `400` | Invalid file type, missing fields, file too large |
+| `422` | Resume could not be parsed (encrypted or image-only) |
 | `429` | Rate limit exceeded |
 | `500` | Server error (missing API key, OpenAI failure) |
 
-## Project Structure
-
-```
-resume-job-matcher/
-├── client/                    # React + Vite frontend
-│   └── src/
-│       ├── components/        # FileUpload, ResultsDashboard, MatchScoreGauge,
-│       │                      # SkillsCard, ExperienceCard, EducationCard,
-│       │                      # AIInsightsCard, RecommendationsCard
-│       ├── hooks/             # useAnalyze (state management)
-│       ├── api/               # Axios API client
-│       ├── types/             # TypeScript interfaces
-│       └── utils/             # Score formatting helpers
-├── server/                    # Express + TypeScript backend
-│   ├── src/
-│   │   ├── services/
-│   │   │   ├── aiService.ts       # OpenAI integration & analysis
-│   │   │   ├── analyzerService.ts # Orchestrator (parse → AI → response)
-│   │   │   └── parserService.ts   # PDF & DOCX text extraction
-│   │   ├── middleware/            # Upload (multer), validation (zod), error handler
-│   │   ├── routes/                # /api/analyze, /api/health
-│   │   ├── config/                # Environment configuration
-│   │   └── utils/                 # Pino logger
-│   └── tests/                     # Unit + integration tests
-├── docs/                      # Screenshots
-├── .github/workflows/ci.yml  # GitHub Actions CI
-├── Dockerfile                 # Multi-stage production build
-├── docker-compose.yml
-└── .env.example
-```
-
-## Testing
-
-```bash
-# Run all server tests
-cd server && npm test
-
-# Run with coverage
-cd server && npx jest --coverage
-```
-
-## Docker
-
-```bash
-# Build and run
-docker compose up --build
-
-# Or manually
-docker build -t resume-job-matcher .
-docker run -p 3001:3001 --env-file .env resume-job-matcher
-```
+---
 
 ## How It Works
 
-1. **Upload** - User uploads a resume (PDF/DOCX) and pastes a job description
-2. **Parse** - Server extracts raw text from the resume using pdf-parse or mammoth
-3. **Analyze** - Resume text and job description are sent to OpenAI with a structured prompt
-4. **Score** - AI returns weighted scores for skills, experience, education, and keyword relevance
-5. **Insights** - AI provides strengths, concerns, interview tips, culture fit, and salary estimates
-6. **Display** - Results are rendered in an interactive dashboard with color-coded indicators
+1. **Upload** -- User uploads a resume (PDF/DOCX) and pastes a job description
+2. **Parse** -- Server extracts text from the resume using pdf-parse or mammoth
+3. **Analyze** -- Resume text and job description are sent to OpenAI with a structured prompt
+4. **Score** -- AI returns weighted scores: skills (50%), experience (25%), education (15%), keywords (10%)
+5. **Display** -- Results render in an interactive dashboard with color-coded indicators
+
+---
+
+## Environment Variables
+
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `OPENAI_API_KEY` | Yes | -- | Your OpenAI API key |
+| `OPENAI_MODEL` | No | `gpt-4o-mini` | OpenAI model to use for analysis |
+
+---
+
+## Deploy
+
+### Vercel (Recommended)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/venkateshwarreddyr/resume-job-matcher&env=OPENAI_API_KEY&envDescription=Your%20OpenAI%20API%20key)
+
+### Manual
+
+```bash
+npm run build
+npm start
+```
+
+---
+
+## Contributing
+
+Contributions are welcome! Fork the repo, create a feature branch, and open a PR.
+
+```bash
+git checkout -b feature/amazing-feature
+git commit -m "Add amazing feature"
+git push origin feature/amazing-feature
+```
+
+---
 
 ## License
 
-MIT
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+<div align="center">
+
+**[ResumeMatch](https://github.com/venkateshwarreddyr/resume-job-matcher)** &mdash; Built with Next.js, Tailwind CSS & OpenAI
+
+</div>
