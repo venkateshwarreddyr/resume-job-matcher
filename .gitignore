@@ -1,7 +1,9 @@
 node_modules/
+.next/
+out/
 dist/
 .env
 *.log
 coverage/
 .DS_Store
-uploads/
+next-env.d.ts
